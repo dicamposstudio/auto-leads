@@ -1,4 +1,4 @@
-const UPSTREAM = 'https://fipe.parallelum.com.br/api/v2';
+const UPSTREAM = 'https://fipe.api.br/api/v2';
 const ALLOWED_TYPES = new Set(['cars', 'motorcycles', 'trucks']);
 
 export async function onRequestGet(context) {
@@ -23,10 +23,10 @@ export async function onRequestGet(context) {
     const reference = sourceUrl.searchParams.get('reference');
     if (reference && /^\d+$/.test(reference)) upstream.searchParams.set('reference', reference);
 
-    const headers = { Accept: 'application/json' };
-    if (context.env.FIPE_TOKEN) {
-      headers['X-Subscription-Token'] = context.env.FIPE_TOKEN;
-    }
+   const headers = { Accept: 'application/json' };
+if (context.env.FIPE_TOKEN) {
+  headers['Authorization'] = `Bearer ${context.env.FIPE_TOKEN}`;
+}
 
     const response = await fetch(upstream.toString(), {
       headers,
