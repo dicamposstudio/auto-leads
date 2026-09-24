@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#121214" />
+  <meta name="description" content="Consulte o valor FIPE do seu veículo e solicite uma avaliação comercial." />
+  <title>Auto Leads — Consulta FIPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Auto Leads">
+        <span class="brand-mark">D</span>
+        <span class="brand-copy">
+          <strong>Auto Leads</strong>
+          <small>by DiCampos Studio</small>
+        </span>
+      </a>
+      <span class="status-pill"><span class="status-dot"></span> Demo MVP</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">AVALIAÇÃO DE VEÍCULOS</span>
+          <h1>Quanto vale o seu carro <span>hoje?</span></h1>
+          <p>Consulte o valor de referência FIPE e, em seguida, envie os dados do veículo para uma avaliação comercial.</p>
+          <div class="hero-points" aria-label="Benefícios">
+            <span>✓ Consulta em poucos segundos</span>
+            <span>✓ Sem cadastro para ver a FIPE</span>
+            <span>✓ Ideal para venda ou troca</span>
+          </div>
+        </div>
+
+        <div class="app-card" id="consultar">
+          <div class="card-head">
+            <div>
+              <span class="step-label">ETAPA 1 DE 2</span>
+              <h2>Consulte seu veículo</h2>
+            </div>
+            <div class="progress" aria-hidden="true"><span></span><i></i></div>
+          </div>
+
+          <div class="vehicle-type" role="group" aria-label="Tipo de veículo">
+            <button class="type-btn active" data-type="cars" type="button">🚗 <span>Carro</span></button>
+            <button class="type-btn" data-type="motorcycles" type="button">🏍️ <span>Moto</span></button>
+            <button class="type-btn" data-type="trucks" type="button">🚚 <span>Caminhão</span></button>
+          </div>
+
+          <form id="fipe-form" autocomplete="off">
+            <label>
+              <span>Marca</span>
+              <select id="brand" required disabled>
+                <option value="">Carregando marcas...</option>
+              </select>
+            </label>
+            <label>
+              <span>Modelo</span>
+              <select id="model" required disabled>
+                <option value="">Selecione a marca primeiro</option>
+              </select>
+            </label>
+            <label>
+              <span>Ano / combustível</span>
+              <select id="year" required disabled>
+                <option value="">Selecione o modelo primeiro</option>
+              </select>
+            </label>
+
+            <button id="consult-btn" class="primary-btn" type="submit" disabled>
+              <span>Consultar valor FIPE</span>
+              <b>→</b>
+            </button>
+            <p class="form-status" id="form-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="result-section hidden" id="result-section" aria-live="polite">
+        <div class="result-card">
+          <div class="result-top">
+            <div>
+              <span class="eyebrow">VALOR DE REFERÊNCIA FIPE</span>
+              <h2 id="result-vehicle">Veículo</h2>
+              <p id="result-meta">—</p>
+            </div>
+            <div class="fipe-badge">FIPE</div>
+          </div>
+
+          <div class="price-box">
+            <span>Valor de referência</span>
+            <strong id="result-price">R$ —</strong>
+            <small id="result-reference">Referência: —</small>
+          </div>
+
+          <div class="result-grid">
+            <div><small>Código FIPE</small><strong id="result-code">—</strong></div>
+            <div><small>Combustível</small><strong id="result-fuel">—</strong></div>
+          </div>
+
+          <button class="secondary-btn" id="start-lead" type="button">Quero receber uma avaliação comercial</button>
+          <p class="legal-copy">A Tabela FIPE é uma referência de mercado. O valor efetivamente oferecido depende de avaliação do veículo, estado de conservação, quilometragem, documentação e demais características.</p>
+        </div>
+
+        <div class="lead-card hidden" id="lead-card">
+          <div class="card-head">
+            <div>
+              <span class="step-label">ETAPA 2 DE 2</span>
+              <h2>Solicitar avaliação</h2>
+            </div>
+            <div class="progress done" aria-hidden="true"><span></span><i></i></div>
+          </div>
+
+          <form id="lead-form">
+            <div class="two-col">
+              <label><span>Seu nome</span><input id="lead-name" type="text" placeholder="Ex.: Diego" required /></label>
+              <label><span>WhatsApp</span><input id="lead-phone" type="tel" inputmode="tel" placeholder="(81) 99999-9999" required /></label>
+            </div>
+            <label>
+              <span>Quilometragem aproximada</span>
+              <select id="lead-km" required>
+                <option value="">Selecione</option>
+                <option>Até 30 mil km</option>
+                <option>30 a 60 mil km</option>
+                <option>60 a 100 mil km</option>
+                <option>100 a 150 mil km</option>
+                <option>Acima de 150 mil km</option>
+              </select>
+            </label>
+            <label>
+              <span>O que você pretende fazer?</span>
+              <select id="lead-intent" required>
+                <option value="">Selecione</option>
+                <option>Vender meu veículo</option>
+                <option>Trocar por outro veículo</option>
+              </select>
+            </label>
+            <label>
+              <span>Situação do veículo</span>
+              <select id="lead-finance" required>
+                <option value="">Selecione</option>
+                <option>Quitado</option>
+                <option>Financiado</option>
+                <option>Não sei informar</option>
+              </select>
+            </label>
+
+            <button class="primary-btn whatsapp" type="submit">
+              <span>Continuar pelo WhatsApp</span>
+              <b>↗</b>
+            </button>
+            <p class="lead-note">Nesta demo, o envio abre uma mensagem pronta no WhatsApp. Na versão comercial, o lead também poderá ser salvo em planilha/CRM.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="how-it-works">
+        <span class="eyebrow">COMO FUNCIONA</span>
+        <h2>Da curiosidade ao lead qualificado</h2>
+        <div class="steps-grid">
+          <article><b>01</b><h3>Consulta</h3><p>O visitante informa marca, modelo e ano do veículo.</p></article>
+          <article><b>02</b><h3>Referência FIPE</h3><p>O sistema apresenta o valor de referência atualizado.</p></article>
+          <article><b>03</b><h3>Qualificação</h3><p>Coletamos intenção, quilometragem e situação do veículo.</p></article>
+          <article><b>04</b><h3>WhatsApp</h3><p>O vendedor recebe uma mensagem já estruturada.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Protótipo comercial — DiCampos Studio</span>
+      <span>Dados de referência: FIPE API</span>
+    </footer>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
